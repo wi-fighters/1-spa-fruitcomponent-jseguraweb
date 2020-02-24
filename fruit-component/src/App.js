@@ -37,14 +37,19 @@ export class App extends Component {
         })
     }
 
-    // deleteElement = (e) => {
-    // }
+    deleteElement = (i) => {
+        let copyOfFruits = [...this.state.fruits];
+        copyOfFruits.splice(i, 1);
+        this.setState({
+            fruits: copyOfFruits
+        })
+    }
 
     render() {
 
         let allFruits = this.state.fruits.map((fruit, i) => {
             return (
-                <FruitComponent key={i} fruit={fruit} name={fruit.name} color={fruit.color} index={i} changeColor={this.changeColor} />
+                <FruitComponent key={i} fruit={fruit} name={fruit.name} color={fruit.color} index={i} changeColor={this.changeColor} deleteElement={this.deleteElement} />
             )
         })
 
