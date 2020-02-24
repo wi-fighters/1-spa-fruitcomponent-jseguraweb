@@ -7,29 +7,44 @@ export class App extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            fruits: ['Apple', 'Mango', 'Banana', 'Lemon'],
-            colors: ['red', 'blue', 'yellow', 'green', 'black']
+            fruits: [
+                {
+                    name: "Apple",
+                    color: "red"
+                },
+                {
+                    name: "Orange",
+                    color: "orange"
+                },
+                {
+                    name: "Banana",
+                    color: "yellow"
+                },
+                {
+                    name: "Lemon",
+                    color: "green"
+                }
+            ]
         }
     }
 
-    changeColor = (e) => {
-        e.target.previousElementSibling.innerText = this.state.colors[Math.floor(Math.random() * (5 - 1) + 1)];
+    changeColor = i => {
+        let myColors = ['white', 'black', 'grey', 'purple', 'brown'];
+        let copyOfFruits = [...this.state.fruits];
+        copyOfFruits[i].color = myColors[Math.floor(Math.random() * myColors.length)];
+        this.setState({
+            fruits: copyOfFruits
+        })
     }
 
-    deleteElement = (e) => {
-        e.target.parentElement.style.display = 'none';
-    }
+    // deleteElement = (e) => {
+    // }
 
     render() {
 
-        let getColor = () => {
-            let colors = [...this.state.colors];
-            return colors[Math.floor(Math.random() * (5 - 1) + 1)]
-        }
-
-        let fruits = this.state.fruits.map((fruit, i) => {
+        let allFruits = this.state.fruits.map((fruit, i) => {
             return (
-                <FruitComponent key={i} fruit={fruit} getColor={getColor()} changeColor={this.changeColor} deleteElement={this.deleteElement} />
+                <FruitComponent key={i} fruit={fruit} name={fruit.name} color={fruit.color} index={i} changeColor={this.changeColor} />
             )
         })
 
@@ -37,7 +52,7 @@ export class App extends Component {
             <div>
                 <h1>Components 1</h1>
                 <ul>
-                    {fruits}
+                    {allFruits}
                 </ul>
             </div>
         );
